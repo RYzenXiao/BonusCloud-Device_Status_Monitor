@@ -2,6 +2,7 @@
 
 # Base on: https://github.com/BonusCloud/BonusCloud-Node
 # Special thanks to qinghon https://github.com/qinghon
+# Powerd by smartmontools (https://www.smartmontools.org/)
 
 echoerr() { 
     printf "\033[1;31m$1\033[0m" 
