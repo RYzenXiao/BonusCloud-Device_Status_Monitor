@@ -5,9 +5,9 @@ Code excerpt from https://github.com/BonusCloud/BonusCloud-Node
 
 ----------------------------------------------------------------------------------------------------------------------
 
-硬盘smart检测部分来自smartmontools (https://www.smartmontools.org/)
+硬盘smart检测部分来自smartmontools (https://www.smartmontools.org/)，需要在系统中先安装smartctl
 
-Hard drive smart detection part comes from smartmontools (https://www.smartmontools.org/)
+Hard drive smart detection part comes from smartmontools (https://www.smartmontools.org/), smartctl need to be installed first.
 
 ----------------------------------------------------------------------------------------------------------------------
 
