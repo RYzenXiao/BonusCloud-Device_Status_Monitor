@@ -23,14 +23,24 @@ It's unknown what will happen in the future, mainly for fun.
 
 ----------------------------------------------------------------------------------------------------------------------
 
-运行截图 / Screenshot
+progress用于显示任务调度情况以及磁盘使用情况
 
-temp.sh: 
-
-![temp.png](https://i.loli.net/2020/03/23/opsTzK9WytExAcm.png)
+progress-en.sh is used to display task scheduling and disk usage
 
 ----------------------------------------------------------------------------------------------------------------------
 
-progress.sh: 
+temp用于显示CPU温度和磁盘温度
 
-![progress.png](https://i.loli.net/2020/03/23/d4wSqvRfYApxM5b.png)
+temp-en.sh is used to display CPU temperature and disk temperature
+
+----------------------------------------------------------------------------------------------------------------------
+
+smart用于显示磁盘smart状态
+
+smart-en.sh is used to display the disk smart status.
+
+----------------------------------------------------------------------------------------------------------------------
+
+文件名结尾带cn表示是显示中文，带H1的表示为JMS576主控硬盘盒(常见于H1硬盘盒)做的版本
+
+File name with "en" means it will display in English and file name with "JMS576" is for hard drive adapter with JMS576 USB bridge.
