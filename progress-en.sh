@@ -19,30 +19,20 @@ echorun() {
     esac
 }
 
+
 echowarn "Progress and usage:  "
 lvm_have=$(lvs 2>/dev/null|grep -q 'BonusVolGroup';echo $?)
 [[ ${lvm_have} -eq 0  ]] && { echorun "0";}|| echorun "1"
+[[ ${lvm_have} -eq 0  ]] &&lvs_info=$(lvs 2>/dev/null|grep BonusVolGroup|grep bonusvol)
+[[ ${lvm_have} -eq 0  ]] &&lvlist=$(echo "$lvs_info"|awk '{print $1}'|sed -r 's#bonusvol([A-Za-z0-9]+)[0-9]{2}#\1#g'|sort -ru)
 
-echowarn "\nTotal synchronized:  "
-syncd="$(df -h|grep "bonusvol"|awk '{sum += int($3)}; END {print sum}')"
-echoinfo "${syncd} GB "
-echo -e "($(lvs|grep BonusVolGroup|grep bonusvol|awk '{sum += int($4)}; END {print ('${syncd}'/sum)*100}')%)"
-
-echowarn "Allocated space:  "
+echowarn "\nAllocated space:  "
 lvm_used="$(lvs|grep BonusVolGroup|grep bonusvol|awk '{sum += int($4)}; END {print sum}')"
-echoinfo "${lvm_used} GB   "
+echoinfo "${lvm_used} GB     "
 
 echowarn "Available space:  "
 free_space=$(vgs|grep 'BonusVolGroup'|awk '{print $7}'|sed 's/\g//g')
-if [[ "$free_space" < 25.25 ]]; then
-    echoerr "$free_space"
-else 
-    if [[ "$free_space" < 105.105 ]]; then
-        echowarn "$free_space GB"
-    else
-        echoinfo "$free_space GB"
-    fi
-fi
+echoinfo "${free_space} GB "
 
 #任务显示
 declare -A dict
@@ -50,8 +40,7 @@ declare -A dict
 # 任务类型字典
 dict=([iqiyi]="A" [baijing]="B" [65542v]="C" [65541v]="D" [65540v]="E")
 
-[[ ${lvm_have} -eq 0  ]] &&lvs_info=$(lvs 2>/dev/null|grep BonusVolGroup|grep bonusvol)
-[[ ${lvm_have} -eq 0  ]] &&lvlist=$(echo "$lvs_info"|awk '{print $1}'|sed -r 's#bonusvol([A-Za-z0-9]+)[0-9]{2}#\1#g'|sort -ru)
+
 [[ ${lvm_have} -eq 0  ]] &&echowarn "\n Type\t\t Used\t Free\t Percentage\n"
 for lv in $lvlist; do
     TYPE=${dict[$lv]}

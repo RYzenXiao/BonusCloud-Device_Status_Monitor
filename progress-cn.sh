@@ -23,26 +23,13 @@ echowarn "已调度进程和使用情况:  "
 lvm_have=$(lvs 2>/dev/null|grep -q 'BonusVolGroup';echo $?)
 [[ ${lvm_have} -eq 0  ]] && { echorun "0";}|| echorun "1"
 
-echowarn "\n已同步数据:  "
-syncd="$(df -h|grep "bonusvol"|awk '{sum += int($3)}; END {print sum}')"
-echoinfo "${syncd} GB "
-echo -e "($(lvs|grep BonusVolGroup|grep bonusvol|awk '{sum += int($4)}; END {print ('${syncd}'/sum)*100}')%)"
-
-echowarn "硬盘已分配空间:  "
+echowarn "\n硬盘已分配空间:  "
 lvm_used="$(lvs|grep BonusVolGroup|grep bonusvol|awk '{sum += int($4)}; END {print sum}')"
-echoinfo "${lvm_used} GB   "
+echoinfo "${lvm_used} GB     "
 
 echowarn "硬盘未分配空间:  "
 free_space=$(vgs|grep 'BonusVolGroup'|awk '{print $7}'|sed 's/\g//g')
-if [[ "$free_space" < 25.25 ]]; then
-    echoerr "$free_space"
-else 
-    if [[ "$free_space" < 105.105 ]]; then
-        echowarn "$free_space GB"
-    else
-        echoinfo "$free_space GB"
-    fi
-fi
+echoinfo "${free_space} GB "
 
 #任务显示
 declare -A dict
